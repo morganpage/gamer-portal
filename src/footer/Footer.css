@@ -1,0 +1,37 @@
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+.footer__icons {
+  margin-top: 10px;
+  width: 200px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.footer__btn {
+  background-color: var(--dark-color-bg);
+  color: var(--dark-color-fg);
+  border: none;
+  width: 46.66px;
+  padding: 10px 10px;
+  border-radius: 50%;
+  align-self: auto;
+}
+
+.footer__btn:hover {
+  background-color: var(--dark-color-fg);
+  color: var(--dark-color-bg);
+  border: none;
+}
+
+.footer__btn:active {
+  border: none;
+  position: relative;
+  top: 1px;
+}
+
+.footer__btn:focus {
+  outline: none;
+}

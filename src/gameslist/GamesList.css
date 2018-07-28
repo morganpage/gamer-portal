@@ -1,0 +1,33 @@
+.gameslist {
+  color: var(--light-color2-fg);
+}
+
+.gameslist__title {
+  padding-left: 20px;
+}
+
+.gameslist__ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.gameslist__li {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.gameslist__li:hover {
+  background-color: var(--dark-color-bg);
+  color: var(--dark-color-fg);
+}
+
+.gameslist__li:active {
+  background-color: var(--light-color-bg);
+  color: var(--light-color-fg);
+}
+
+.gameslist__gametitle {
+  padding-left: 20px;
+}

@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 20px;
+  color: var(--dark-color-fg);
+}
+
+.header__btn {
+  font-family: 'Roboto';
+  font-size: 1em;
+  font-weight: 500;
+  background-color: var(--dark-color-bg);
+  color: var(--dark-color-fg);
+  border: none;
+  padding: 10px 20px;
+}
+
+.header__btn:hover {
+  background-color: var(--dark-color-fg);
+  color: var(--dark-color-bg);
+  border: none;
+}
+
+.header__btn:active {
+  border: none;
+  position: relative;
+  top: 1px;
+}
+
+.header__btn:focus {
+  outline: none;
+}

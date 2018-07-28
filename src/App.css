@@ -1,0 +1,40 @@
+:root {
+  --dark-color-bg: #d58936;
+  --dark-color-fg: #eee;
+  --light-color-bg: #f5e2c8;
+  --light-color-fg: #777;
+  --light-color2-bg: #eecf6d;
+  --light-color2-fg: #777;
+}
+
+.App {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr;
+  grid-template-rows: 80px auto 80px;
+  grid-template-areas:
+    'h h h'
+    's m m'
+    'f f f';
+}
+
+.App__header {
+  grid-area: h;
+  background-color: var(--dark-color-bg);
+}
+
+.App__sidebar {
+  grid-area: s;
+  background-color: var(--light-color2-bg);
+}
+
+.App__main {
+  grid-area: m;
+  background-color: var(--light-color-bg);
+  padding: 20px;
+}
+
+.App__footer {
+  grid-area: f;
+  background-color: var(--dark-color-bg);
+}
