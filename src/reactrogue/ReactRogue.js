@@ -3,6 +3,7 @@ import './ReactRogue.css';
 import Player from './Player';
 import World from './World';
 import InputManager from './InputManager';
+import Inventory from './Inventory/Inventory';
 
 const WORLD_WIDTH = 40;
 const WORLD_HEIGHT = 40;
@@ -30,7 +31,7 @@ class ReactRogue extends React.Component {
     let player = new Player(3, 3, TILESIZE);
     this.world = world;
     this.player = player;
-    this.inputManager.subscribe(this.handleInput);
+
     this.world.add(this.player);
     this.world.movetospace(this.player);
     this.world.render();
@@ -38,11 +39,19 @@ class ReactRogue extends React.Component {
 
   handleInput = (action, data) => {
     console.log('handle -' + action + data);
-    if (
-      action === 'move' &&
-      this.world.wayclear(this.player.nextposition(data.x, data.y))
-    )
-      this.player.move(data.x, data.y);
+    // if (
+    //   action === 'move' &&
+    //   this.world.wayclear(this.player.nextposition(data.x, data.y))
+    // )
+    //   this.player.move(data.x, data.y);
+    if (action === 'move') {
+      let nextPlayerPos = this.player.nextposition(data.x, data.y);
+      let entity = this.world.getEntity(nextPlayerPos);
+      if (entity) entity.action();
+      else if (this.world.wayclear(nextPlayerPos))
+        this.player.move(data.x, data.y);
+    }
+
     this.world.render();
   };
 
@@ -64,10 +73,12 @@ class ReactRogue extends React.Component {
   componentWillMount() {
     //document.addEventListener('keydown', this.handleKeyDown.bind(this));
     this.inputManager.bindKeys();
+    this.inputManager.subscribe(this.handleInput);
   }
   componentWillUnmount() {
     //document.removeEventListener('keydown', this.handleKeyDown.bind(this));
     this.inputManager.unbindKeys();
+    this.inputManager.unsubscribe(this.handleInput);
   }
   render() {
     return (
@@ -79,6 +90,7 @@ class ReactRogue extends React.Component {
           width={WORLD_WIDTH * TILESIZE}
           height={WORLD_WIDTH * TILESIZE}
         />
+        <Inventory />
       </div>
     );
   }

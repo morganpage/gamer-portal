@@ -43,6 +43,8 @@ class World {
     );
   }
 
+  getEntity(tile) {}
+
   add(entity) {
     console.log(entity);
     this.entities.push(entity);

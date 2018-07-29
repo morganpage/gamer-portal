@@ -1,0 +1,16 @@
+.inventory {
+  color: var(--light-color-fg);
+}
+.inventory__heading {
+  margin: 0;
+}
+.inventory__ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.inventory__li {
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+}
