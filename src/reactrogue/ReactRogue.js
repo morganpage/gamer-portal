@@ -4,6 +4,7 @@ import Player from './Player';
 import World from './World';
 import InputManager from './InputManager';
 import Inventory from './Inventory/Inventory';
+import LootSpawner from './LootSpawner';
 
 const WORLD_WIDTH = 40;
 const WORLD_HEIGHT = 40;
@@ -13,16 +14,15 @@ class ReactRogue extends React.Component {
   constructor() {
     super();
     this.inputManager = new InputManager();
-    // this.state = {
-    //   inputManager: new InputManager(),
-    //   world: {
-    //     width: 40,
-    //     height: 40,
-    //     tilesize: 16
-    //   },
-    //   player: { x: 32, y: 64 }
-    // };
+    this.state = {
+      player: { inventory: [] }
+    };
   }
+
+  handlePlayerUpdate = () => {
+    let player = { ...this.player };
+    this.setState({ player });
+  };
 
   startGame() {
     var canvas = document.getElementById('myCanvas');
@@ -31,52 +31,44 @@ class ReactRogue extends React.Component {
     let player = new Player(3, 3, TILESIZE);
     this.world = world;
     this.player = player;
-
+    this.player.subscribe(this.handlePlayerUpdate);
     this.world.add(this.player);
     this.world.movetospace(this.player);
+    let lootSpawner = new LootSpawner(player, world);
+    lootSpawner.spawn(10);
     this.world.render();
+    lootSpawner.pickupAll();
   }
 
   handleInput = (action, data) => {
-    console.log('handle -' + action + data);
-    // if (
-    //   action === 'move' &&
-    //   this.world.wayclear(this.player.nextposition(data.x, data.y))
-    // )
-    //   this.player.move(data.x, data.y);
     if (action === 'move') {
       let nextPlayerPos = this.player.nextposition(data.x, data.y);
       let entity = this.world.getEntity(nextPlayerPos);
-      if (entity) entity.action();
-      else if (this.world.wayclear(nextPlayerPos))
+      if (entity) {
+        entity.action('move');
+      } else if (this.world.wayclear(nextPlayerPos))
         this.player.move(data.x, data.y);
     }
 
     this.world.render();
   };
 
-  // handleKeyDown = e => {
-  //   e.preventDefault();
-  //   console.log('KeyDown');
-  //   this.player.move(1, 0);
-  //   this.world.render();
-  //   //let player = { ...this.state.player };
-  //   //player.x += 32;
-  //   //this.setState({ player });
-  //   //this.renderCanvas();
-  // };
+  handleDrop = item => {
+    console.log('handleDrop:' + item.attributes.name);
+    //this.player.drop(item);
+    item.action('drop');
+    this.world.render();
+  };
 
   componentDidMount() {
     this.startGame();
   }
 
   componentWillMount() {
-    //document.addEventListener('keydown', this.handleKeyDown.bind(this));
     this.inputManager.bindKeys();
     this.inputManager.subscribe(this.handleInput);
   }
   componentWillUnmount() {
-    //document.removeEventListener('keydown', this.handleKeyDown.bind(this));
     this.inputManager.unbindKeys();
     this.inputManager.unsubscribe(this.handleInput);
   }
@@ -90,7 +82,10 @@ class ReactRogue extends React.Component {
           width={WORLD_WIDTH * TILESIZE}
           height={WORLD_WIDTH * TILESIZE}
         />
-        <Inventory />
+        <Inventory
+          inventory={this.state.player.inventory}
+          handleDrop={this.handleDrop}
+        />
       </div>
     );
   }

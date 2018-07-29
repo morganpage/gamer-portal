@@ -12,5 +12,31 @@
 .inventory__li {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 120px;
+  height: 25px;
+}
+
+.inventory__deletebutton {
+  background-color: var(--dark-color-bg);
+  color: var(--dark-color-fg);
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+}
+
+.inventory__deletebutton:hover {
+  background-color: var(--dark-color-fg);
+  color: var(--dark-color-bg);
+}
+
+.inventory__deletebutton:active {
+  position: relative;
+  top: 1px;
+}
+
+.inventory__deletebutton:focus {
+  outline: none;
 }

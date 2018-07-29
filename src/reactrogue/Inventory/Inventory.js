@@ -1,17 +1,24 @@
 import React from 'react';
 import './Inventory.css';
 
-const inventory = () => {
+const inventory = props => {
   return (
     <div className="inventory">
       <h2 className="inventory__heading">Inventory</h2>
       <ul className="inventory__ul">
-        <li className="inventory__li">
-          Sword<button>x</button>
-        </li>
-        <li className="inventory__li">
-          10 Gold<button>x</button>
-        </li>
+        {props.inventory.map((item, index) => {
+          return (
+            <li key={index} className="inventory__li">
+              {item.attributes.name}
+              <button
+                className="inventory__deletebutton"
+                onClick={props.handleDrop.bind(this, item)}
+              >
+                x
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

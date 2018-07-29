@@ -5,8 +5,11 @@ class Entity {
     this.size = size;
   }
 
+  action() {
+    console.log('Some action');
+  }
+
   render(context) {
-    context.fillStyle = '#FF0000';
     context.fillRect(
       this.x * this.size,
       this.y * this.size,

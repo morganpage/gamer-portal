@@ -3,7 +3,6 @@ import ROT from 'rot-js';
 class World {
   constructor(context, width, height, tilesize) {
     this.context = context;
-    //this.context.font = tilesize + 'px Arial';
     this.width = width;
     this.height = height;
     this.tilesize = tilesize;
@@ -43,17 +42,25 @@ class World {
     );
   }
 
-  getEntity(tile) {}
+  getEntity(tile) {
+    return this.entities.find(
+      entity => entity.x === tile.x && entity.y === tile.y
+    );
+  }
 
   add(entity) {
-    console.log(entity);
     this.entities.push(entity);
+  }
+
+  remove(entity) {
+    this.entities = this.entities.filter(e => e !== entity);
+    this.render();
   }
 
   movetospace(entity) {
     for (let x = entity.x; x < this.width; x++) {
       for (let y = entity.y; y < this.height; y++) {
-        if (this.worldmap[x][y] === 0) {
+        if (this.worldmap[x][y] === 0 && !this.getEntity({ x, y })) {
           entity.x = x;
           entity.y = y;
           return;
@@ -69,16 +76,6 @@ class World {
       y * this.tilesize,
       this.tilesize,
       this.tilesize
-    );
-  }
-
-  drawTile(x, y, char) {
-    //
-    console.log(this.tilesize);
-    this.context.fillText(
-      char,
-      x * this.tilesize + this.tilesize,
-      y * this.tilesize + this.tilesize
     );
   }
 
