@@ -4,7 +4,8 @@ import Player from './Player';
 import World from './World';
 import InputManager from './InputManager';
 import Inventory from './Inventory/Inventory';
-import LootSpawner from './LootSpawner';
+import CombatLog from './CombatLog/CombatLog';
+import Spawner from './Spawner';
 
 const WORLD_WIDTH = 40;
 const WORLD_HEIGHT = 40;
@@ -34,10 +35,11 @@ class ReactRogue extends React.Component {
     this.player.subscribe(this.handlePlayerUpdate);
     this.world.add(this.player);
     this.world.movetospace(this.player);
-    let lootSpawner = new LootSpawner(player, world);
-    lootSpawner.spawn(10);
+    let spawner = new Spawner(player, world);
+    spawner.spawnLoot(10);
+    spawner.spawnMonster(5);
     this.world.render();
-    lootSpawner.pickupAll();
+    //lootSpawner.pickupAll();
   }
 
   handleInput = (action, data) => {
@@ -82,10 +84,13 @@ class ReactRogue extends React.Component {
           width={WORLD_WIDTH * TILESIZE}
           height={WORLD_WIDTH * TILESIZE}
         />
-        <Inventory
-          inventory={this.state.player.inventory}
-          handleDrop={this.handleDrop}
-        />
+        <div className="reactrogue__panels">
+          <Inventory
+            inventory={this.state.player.inventory}
+            handleDrop={this.handleDrop}
+          />
+          <CombatLog />
+        </div>
       </div>
     );
   }

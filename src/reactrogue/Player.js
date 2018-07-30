@@ -13,10 +13,6 @@ class Player extends Entity {
     this.inventory = this.inventory.filter(i => i !== item);
     this.broadcast();
   }
-  // drop(index) {
-  //   this.inventory.splice(0, 1);
-  //   this.broadcast();
-  // }
 
   move(dx, dy) {
     this.x += dx;

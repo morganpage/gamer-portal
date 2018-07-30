@@ -4,3 +4,8 @@
 .reactrogue__canvas {
   background-color: #555;
 }
+
+.reactrogue__panels {
+  display: flex;
+  justify-content: space-between;
+}

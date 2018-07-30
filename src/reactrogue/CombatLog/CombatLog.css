@@ -1,0 +1,14 @@
+.combatlog {
+  color: var(--light-color-fg);
+}
+.combatlog__heading {
+  margin: 0;
+}
+.combatlog__ul {
+  padding-left: 20px;
+  margin: 0;
+  list-style-type: none;
+}
+
+.combatlog__li {
+}
